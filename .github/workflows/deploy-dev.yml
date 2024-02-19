@@ -1,4 +1,4 @@
-name: Deployment DEV
+name: GitHub Actions Demo
 run-name: ${{ github.actor }} running a deployment 🚀
 on:
   push:
