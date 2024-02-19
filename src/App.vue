@@ -2,6 +2,7 @@
 import {KeycloakInstance} from "./main.ts";
 import {onMounted, ref} from "vue";
 import {KeycloakInitOptions, KeycloakProfile} from "keycloak-js";
+import TheUserHomePage from "./components/TheUserHomePage.vue";
 
 const userProfile = ref<KeycloakProfile>();
 
@@ -25,20 +26,10 @@ onMounted(async () => {
   <h1>ByBrauns.com</h1>
   <template v-if="userProfile">
     <button @click="() => KeycloakInstance.logout()">Logout</button>
-    <p>
-      Hallo {{ userProfile.firstName }}!
-    </p>
-    <p>
-      User:
-      {{KeycloakInstance.hasRealmRole('user')}}
-      Maintainer:
-      {{KeycloakInstance.hasRealmRole('maintainer')}}
-    </p>
+    <TheUserHomePage :user-profile="userProfile" />
   </template>
   <template v-else>
     <button @click="() => KeycloakInstance.login()">Login</button>
   </template>
 </template>
 
-<style scoped>
-</style>
