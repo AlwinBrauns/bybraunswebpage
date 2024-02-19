@@ -4,7 +4,7 @@ on:
   push:
     branches: ['main']
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -15,4 +15,14 @@ jobs:
           node-version: '18.x'
       - run: npm install
       - run: npm run build
+      - run: cp -r dist html
+      - name: deploy to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          port: ${{ secrets.PORT }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          source: "html"
+          target: "~/bybraunsinfrastructure/static-web-server-dev/"
       - run: echo "This job's status is ${{ job.status }}."
