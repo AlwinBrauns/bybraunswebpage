@@ -23,6 +23,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           port: ${{ secrets.PORT }}
           key: ${{ secrets.DEPLOY_KEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
           source: "html"
           target: "~/bybraunsinfrastructure/static-web-server-dev/"
       - run: echo "This job's status is ${{ job.status }}."
