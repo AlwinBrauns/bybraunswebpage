@@ -23,7 +23,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <h1>ByBrauns.com</h1>
+  <h1>Willkommen auf ByBrauns.com</h1>
   <template v-if="userProfile">
     <button @click="() => KeycloakInstance.logout()">Logout</button>
     <TheUserHomePage :user-profile="userProfile" />
