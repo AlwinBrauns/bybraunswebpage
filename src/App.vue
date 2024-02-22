@@ -3,6 +3,7 @@ import {KeycloakInstance} from "./main.ts";
 import {onMounted, ref} from "vue";
 import {KeycloakInitOptions, KeycloakProfile} from "keycloak-js";
 import TheUserHomePage from "./components/TheUserHomePage.vue";
+import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/vue";
 
 const userProfile = ref<KeycloakProfile>();
 
@@ -23,13 +24,36 @@ onMounted(async () => {
 </script>
 
 <template>
-  <h1>Willkommen</h1>
+  <div class="container max-w-screen-sm mx-auto p-3 px-10 grid grid-cols-2 items-baseline border-b-4 rounded border-green-400">
+    <div class="text-start">
+      <span class="text-2xl">Welcome</span>
+    </div>
+    <nav class="justify-self-end">
+      <Menu as="div" class="relative">
+        <MenuButton>Account</MenuButton>
+        <transition
+            enter-active-class="transition duration-100 ease-out"
+            enter-from-class="transform scale-95 opacity-0"
+            enter-to-class="transform scale-100 opacity-100"
+            leave-active-class="transition duration-75 ease-in"
+            leave-from-class="transform scale-100 opacity-100"
+            leave-to-class="transform scale-95 opacity-0"
+        >
+          <MenuItems as="ul" class="absolute right-0 p-3 mt-1.5 w-max flex flex-col border-2 rounded border-green-400 bg-white">
+            <MenuItem>
+              <a href="#" @click="KeycloakInstance.logout" v-if="userProfile">Logout</a>
+              <a href="#" @click="KeycloakInstance.login" v-else>Login</a>
+            </MenuItem>
+            <MenuItem v-if="userProfile">
+              <a href="#" @click="KeycloakInstance.accountManagement">Your Account</a>
+            </MenuItem>
+          </MenuItems>
+        </transition>
+      </Menu>
+    </nav>
+  </div>
   <template v-if="userProfile">
-    <button @click="() => KeycloakInstance.logout()">Logout</button>
     <TheUserHomePage :user-profile="userProfile" />
-  </template>
-  <template v-else>
-    <button @click="() => KeycloakInstance.login()">Login</button>
   </template>
 </template>
 
