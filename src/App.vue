@@ -39,7 +39,7 @@ onMounted(async () => {
             leave-from-class="transform scale-100 opacity-100"
             leave-to-class="transform scale-95 opacity-0"
         >
-          <MenuItems as="ul" class="absolute right-0 p-3 mt-1.5 w-max flex flex-col border-2 rounded border-green-400 bg-white">
+          <MenuItems as="ul" class="absolute right-0 p-5 mt-1.5 w-max min-w-32 flex flex-col rounded shadow bg-white">
             <MenuItem>
               <a href="#" @click="KeycloakInstance.logout" v-if="userProfile">Logout</a>
               <a href="#" @click="KeycloakInstance.login" v-else>Login</a>
