@@ -11,7 +11,8 @@ defineProps<{
 }>()
 
 onMounted(async () => {
-  ping.value = await ollamaAdapter.get('api/ollama/ping');
+  const {data} = await ollamaAdapter.get('api/ollama/ping');
+  ping.value = data;
 })
 </script>
 
