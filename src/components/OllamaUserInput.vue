@@ -48,7 +48,7 @@ const model = defineModel<string>();
     </div>
     <button
       class="absolute p-1 top-1/2 transform -translate-y-1/2 right-2.5 rounded-lg border border-black bg-black transition-colors enabled:bg-black disabled:text-gray-400 disabled:opacity-10"
-      :disabled="!userTextInput"
+      :disabled="!model"
     >
       <span>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
