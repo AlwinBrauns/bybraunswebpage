@@ -18,6 +18,7 @@ onMounted(async () => {
   };
   await KeycloakInstance.init(<KeycloakInitOptions>{
     onLoad: "check-sso",
+    pkceMethod: "S256"
   });
 });
 </script>
