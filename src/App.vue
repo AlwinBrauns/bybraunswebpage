@@ -18,7 +18,7 @@ onMounted(async () => {
   };
   await KeycloakInstance.init(<KeycloakInitOptions>{
     onLoad: "check-sso",
-    pkceMethod: "S256"
+    pkceMethod: "S256",
   });
 });
 </script>
@@ -74,7 +74,10 @@ onMounted(async () => {
               >
               <a href="#" @click="KeycloakInstance.login" v-else>Login</a>
             </MenuItem>
-            <MenuItem v-if="userProfile" class="hover:bg-gray-100 p-2 rounded-lg">
+            <MenuItem
+              v-if="userProfile"
+              class="hover:bg-gray-100 p-2 rounded-lg"
+            >
               <a href="#" @click="KeycloakInstance.accountManagement"
                 >Your Account</a
               >

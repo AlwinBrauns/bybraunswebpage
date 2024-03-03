@@ -1,5 +1,12 @@
 <script setup lang="ts">
 const model = defineModel<string>();
+const emits = defineEmits<{
+  send: [message: string];
+}>();
+const onSend = () => {
+  emits("send", model.value!);
+  model.value = "";
+};
 </script>
 <template>
   <div
@@ -10,6 +17,12 @@ const model = defineModel<string>();
       tabindex="0"
       data-id="root"
       v-model="model"
+      @keydown.enter.exact.prevent="
+        () => {
+          if (!model) return;
+          onSend();
+        }
+      "
       rows="1"
       placeholder="Schreibe llama..."
       class="w-full focus-visible:outline-0 resize-none border-0 bg-transparent max-h-25 py-3 px-10 placeholder-black/50 md:py-3.5 md:pr-12 md:pl-[55px]"
@@ -49,6 +62,7 @@ const model = defineModel<string>();
     <button
       class="absolute p-1 top-1/2 transform -translate-y-1/2 right-2.5 rounded-lg border border-black bg-black transition-colors enabled:bg-black disabled:text-gray-400 disabled:opacity-10"
       :disabled="!model"
+      @click="onSend"
     >
       <span>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
