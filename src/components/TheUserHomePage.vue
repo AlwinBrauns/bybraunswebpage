@@ -67,7 +67,7 @@ onMounted(async () => {
             ollamaAdapter.post('api/ollama/send', {
               message: {
                 message: message,
-                role: 'human',
+                role: 'user',
                 other: '',
               },
               context: {
