@@ -23,7 +23,9 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="container mx-auto p-5 flex gap-4 flex-col">
+  <div class="container mx-auto p-5 grid gap-4 content-between self-end transition-all mb-4"
+       :class="OllamaListener.messages.value.length ? 'flex-1' : ''"
+  >
     <div class="flex gap-2 items-center relative">
       <span> Hallo {{ userProfile.firstName }}! </span>
       <Disclosure as="span">
@@ -60,9 +62,22 @@ onMounted(async () => {
         </transition>
       </Disclosure>
     </div>
-    <div>
-      <OllamaUserInput
-        @send="
+    <div class="grid grid-cols-1 grid-flow-row gap-2">
+      <template v-for="message in OllamaListener.messages.value ">
+        <div class="ollama-message">
+          <span>
+          {{ message }}
+          </span>
+        </div>
+      </template>
+      <div v-if="OllamaListener.currentOllamaMessage.value" class="ollama-message ollama-message-current">
+        <span>
+        {{ OllamaListener.currentOllamaMessage.value }}
+        </span>
+      </div>
+      <div>
+        <OllamaUserInput
+            @send="
           (message: string) => {
             ollamaAdapter.post('api/ollama/send', {
               message: {
@@ -80,14 +95,14 @@ onMounted(async () => {
             });
           }
         "
-      />
-    </div>
-    <div>
-      <template v-for="message in OllamaListener.ollamaMessages.value">
-        <div>
-          <pre>{{ JSON.stringify(message) }}</pre>
-        </div>
-      </template>
+        />
+      </div>
     </div>
   </div>
 </template>
+
+<style scoped lang="postcss">
+  .ollama-message {
+    @apply w-full transition-all rounded-lg shadow bg-white p-5;
+  }
+</style>
