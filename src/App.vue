@@ -5,7 +5,7 @@ import {KeycloakInitOptions, KeycloakProfile} from "keycloak-js";
 import TheUserHomePage from "./components/TheUserHomePage.vue";
 import TheHeader from "./components/TheHeader.vue";
 
-const userProfile = ref<KeycloakProfile>({});
+const userProfile = ref<KeycloakProfile>();
 
 const loadProfile = async () => {
   userProfile.value = await KeycloakInstance.loadUserProfile();

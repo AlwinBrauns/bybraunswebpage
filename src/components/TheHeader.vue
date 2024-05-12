@@ -4,7 +4,7 @@ import {KeycloakInstance} from "../main.ts";
 import {KeycloakProfile} from "keycloak-js";
 
 defineProps<{
-  userProfile: KeycloakProfile
+  userProfile: KeycloakProfile | undefined
 }>();
 
 </script>
