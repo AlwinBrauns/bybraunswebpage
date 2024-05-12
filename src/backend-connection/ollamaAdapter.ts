@@ -42,6 +42,7 @@ export function useOllamaListener() {
     headers: {
       Authorization: `Bearer ${KeycloakInstance.token}`,
     },
+    openWhenHidden: true,
     body: streamId.value?JSON.stringify({
         streamId: streamId.value,
         historyId: historyId.value
