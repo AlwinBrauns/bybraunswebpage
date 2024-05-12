@@ -42,11 +42,9 @@ export function useOllamaListener() {
     headers: {
       Authorization: `Bearer ${KeycloakInstance.token}`,
     },
-    body: streamId?JSON.stringify({
-      context: {
-        streamId: streamId,
-        historyId: historyId
-      }
+    body: streamId.value?JSON.stringify({
+        streamId: streamId.value,
+        historyId: historyId.value
     }):undefined,
     onmessage(ev) {
       if (ev.id === "INIT") {
