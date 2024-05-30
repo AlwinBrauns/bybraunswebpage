@@ -14,3 +14,6 @@
 html, body, main{
     height: 100%;
 }
+.letter {
+    display: inline-block;
+}

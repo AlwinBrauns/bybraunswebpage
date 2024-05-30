@@ -14,11 +14,13 @@
     "@heroicons/vue": "^2.1.1",
     "@microsoft/fetch-event-source": "^2.0.1",
     "@vueuse/core": "^10.10.0",
+    "animejs": "^3.2.2",
     "axios": "^1.6.7",
     "keycloak-js": "^23.0.6",
     "vue": "^3.4.15"
   },
   "devDependencies": {
+    "@types/animejs": "^3.1.12",
     "@vitejs/plugin-vue": "^5.0.3",
     "autoprefixer": "^10.4.17",
     "postcss": "^8.4.35",
