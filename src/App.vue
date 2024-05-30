@@ -4,6 +4,7 @@ import TheHeader from "./components/TheHeader.vue";
 import {useKeycloakUser} from "./composable/User/useKeycloakUser.ts";
 import {KeycloakInstance} from "./main.ts";
 import {UserState} from "./composable/User/UserState.ts";
+import TheLandingPage from "./pages/TheLandingPage.vue";
 
 const {userState, userProfile} = useKeycloakUser();
 
@@ -16,6 +17,7 @@ const {userState, userProfile} = useKeycloakUser();
   </template>
   <template v-if="userState === UserState.NOT_LOGGED_IN">
     <TheHeader :user-profile="userProfile"/>
+    <TheLandingPage />
   </template>
   <template v-if="userState === UserState.LOADING">
     <div>Loading...</div>
