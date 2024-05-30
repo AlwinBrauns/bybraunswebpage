@@ -1,31 +1,31 @@
 <script setup lang="ts">
-import {KeycloakInstance} from "./main.ts";
-import {onMounted, ref} from "vue";
-import {KeycloakInitOptions, KeycloakProfile} from "keycloak-js";
 import TheUserHomePage from "./components/TheUserHomePage.vue";
 import TheHeader from "./components/TheHeader.vue";
+import {useKeycloakUser} from "./composable/User/useKeycloakUser.ts";
+import {KeycloakInstance} from "./main.ts";
+import {UserState} from "./composable/User/UserState.ts";
 
-const userProfile = ref<KeycloakProfile>();
+const {userState, userProfile} = useKeycloakUser();
 
-const loadProfile = async () => {
-  userProfile.value = await KeycloakInstance.loadUserProfile();
-};
-
-onMounted(async () => {
-  KeycloakInstance.onReady = async (authenticated: boolean | undefined) => {
-    if (!authenticated) return;
-    await loadProfile();
-  };
-  await KeycloakInstance.init(<KeycloakInitOptions>{
-    onLoad: "check-sso",
-    pkceMethod: "S256",
-  });
-});
 </script>
 
 <template>
-  <TheHeader :user-profile="userProfile"/>
-  <template v-if="userProfile">
+  <template v-if="userState === UserState.LOGGED_IN_PAGE">
+    <TheHeader :user-profile="userProfile"/>
     <TheUserHomePage :user-profile="userProfile" />
+  </template>
+  <template v-if="userState === UserState.NOT_LOGGED_IN">
+    <TheHeader :user-profile="userProfile"/>
+  </template>
+  <template v-if="userState === UserState.LOADING">
+    <div>Loading...</div>
+  </template>
+  <template v-if="userState === UserState.DISABLED">
+    <TheHeader :user-profile="userProfile"/>
+    <div>
+      <p>This Account is disabled, please log into another Account!
+        <a href="#" @click="KeycloakInstance.logout">Logout</a>
+      </p>
+    </div>
   </template>
 </template>

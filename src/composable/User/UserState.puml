@@ -1,0 +1,26 @@
+@startuml
+'https://plantuml.com/state-diagram
+[*] --> User.Loading : user enters page
+state User {
+    state NotLoggedIn #ff0000 {
+        NotLoggedIn : UserProfile = undefined
+    }
+    state Loading #f0f000 {
+        Loading : UserProfile = undefined
+    }
+    state LoggedIn #00ff00 {
+        LoggedIn : UserProfile = defined
+    }
+    state Disabled #ff0000 {
+        Disabled : UserProfile.enabled = false
+    }
+
+    Loading --> NotLoggedIn : user not found
+    Loading --> LoggedIn : user found
+    Loading -right-> Disabled : user found that is disabled
+    NotLoggedIn --> LoggedIn : user logs in
+    LoggedIn --> NotLoggedIn : user logs out
+    LoggedIn --> NotLoggedIn : user session expired
+    Disabled --> NotLoggedIn : user logs out
+}
+@enduml
