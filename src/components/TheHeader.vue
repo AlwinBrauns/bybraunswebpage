@@ -2,17 +2,29 @@
 import {MenuButton, MenuItem, MenuItems, Menu} from "@headlessui/vue";
 import {KeycloakInstance} from "../main.ts";
 import {KeycloakProfile} from "keycloak-js";
+import {ref} from "vue";
+import {onClickOutside} from "@vueuse/core";
 
 defineProps<{
   userProfile: KeycloakProfile | undefined
 }>();
+const open = ref<boolean>(false);
+const openMenu = () => {
+  open.value = true;
+}
+
+const target = ref(null);
+onClickOutside(target, _ => {
+  open.value = false;
+})
 
 </script>
 <template>
   <div
-      class="container max-w-screen-sm mx-auto p-3 px-10 grid grid-cols-2 items-center border-b-2 border-black"
+      class="container fixed grid inset-x-0 max-w-screen-sm mx-auto z-50"
   >
-    <div class="h-full">
+    <div ref="target" :class="[open?'translate-y-0':'-translate-y-[100%]', open?'shadow-[0px_0px_2px]':'shadow-[0px_1px_2px]']" class="grid grid-cols-2 transition-transform items-center relative p-3 px-10 border-b-2 border-black">
+      <div class="h-full">
       <span>
         <svg
             width="32"
@@ -37,39 +49,43 @@ defineProps<{
           />
         </svg>
       </span>
-    </div>
-    <nav class="justify-self-end">
-      <Menu as="div" class="relative">
-        <MenuButton>Account</MenuButton>
-        <transition
-            enter-active-class="transition duration-100 ease-out"
-            enter-from-class="transform scale-95 opacity-0"
-            enter-to-class="transform scale-100 opacity-100"
-            leave-active-class="transition duration-75 ease-in"
-            leave-from-class="transform scale-100 opacity-100"
-            leave-to-class="transform scale-95 opacity-0"
-        >
-          <MenuItems
-              as="ul"
-              class="absolute right-0 p-3 mt-1.5 w-max min-w-32 flex gap-2.5 flex-col rounded shadow bg-white z-10"
+      </div>
+      <nav class="justify-self-end">
+        <Menu as="div" class="relative">
+          <MenuButton>Account</MenuButton>
+          <transition
+              enter-active-class="transition duration-100 ease-out"
+              enter-from-class="transform scale-95 opacity-0"
+              enter-to-class="transform scale-100 opacity-100"
+              leave-active-class="transition duration-75 ease-in"
+              leave-from-class="transform scale-100 opacity-100"
+              leave-to-class="transform scale-95 opacity-0"
           >
-            <MenuItem class="hover:bg-gray-100 p-2 rounded-lg">
-              <a href="#" @click="KeycloakInstance.logout" v-if="userProfile"
-              >Logout</a
-              >
-              <a href="#" @click="KeycloakInstance.login" v-else>Login</a>
-            </MenuItem>
-            <MenuItem
-                v-if="userProfile"
-                class="hover:bg-gray-100 p-2 rounded-lg"
+            <MenuItems
+                as="ul"
+                class="absolute right-0 p-3 mt-1.5 w-max min-w-32 flex gap-2.5 flex-col rounded shadow bg-white z-10"
             >
-              <a href="#" @click="KeycloakInstance.accountManagement"
-              >Your Account</a
+              <MenuItem class="hover:bg-gray-100 p-2 rounded-lg">
+                <a href="#" @click="KeycloakInstance.logout" v-if="userProfile"
+                >Logout</a
+                >
+                <a href="#" @click="KeycloakInstance.login" v-else>Login</a>
+              </MenuItem>
+              <MenuItem
+                  v-if="userProfile"
+                  class="hover:bg-gray-100 p-2 rounded-lg"
               >
-            </MenuItem>
-          </MenuItems>
-        </transition>
-      </Menu>
-    </nav>
+                <a href="#" @click="KeycloakInstance.accountManagement"
+                >Your Account</a
+                >
+              </MenuItem>
+            </MenuItems>
+          </transition>
+        </Menu>
+      </nav>
+        <div v-if="!open" class="absolute grid place-self-center cursor-pointer p-2 -bottom-9 opacity-60 bg-white rounded-2xl" role="button" @click="openMenu()">
+          <div class="text-xs relative">open menu</div>
+        </div>
+    </div>
   </div>
 </template>
