@@ -13,7 +13,7 @@ const ping = ref();
 const OllamaListener = useOllamaListener();
 
 defineProps<{
-  userProfile: KeycloakProfile;
+  userProfile: KeycloakProfile | undefined;
 }>();
 
 onMounted(async () => {
@@ -27,7 +27,7 @@ onMounted(async () => {
        :class="OllamaListener.messages.value.length ? 'flex-1' : ''"
   >
     <div class="flex gap-2 items-center relative">
-      <span> Hallo {{ userProfile.firstName }}! </span>
+      <span> Hallo {{ userProfile?.firstName }}! </span>
       <Disclosure as="span">
         <DisclosureButton class="grid grid-cols-2 place-items-center">
           <i> Infos </i>
