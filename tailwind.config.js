@@ -9,5 +9,8 @@ export default {
       }
     },
   },
-  plugins: [require("@headlessui/tailwindcss")({ prefix: "ui" })],
+  plugins: [
+      require("@headlessui/tailwindcss")({ prefix: "ui" }),
+      require('tailwind-scrollbar'),
+  ],
 };

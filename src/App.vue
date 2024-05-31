@@ -31,3 +31,5 @@ const {userState, userProfile} = useKeycloakUser();
     </div>
   </template>
 </template>
+<style scoped lang="postcss">
+</style>

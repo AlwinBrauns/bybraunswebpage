@@ -23,7 +23,7 @@ onClickOutside(target, _ => {
   <div
       class="container fixed grid inset-x-0 max-w-screen-sm mx-auto z-50"
   >
-    <div ref="target" :class="[open?'translate-y-0':'-translate-y-[100%]', open?'shadow-[0px_0px_2px]':'shadow-[0px_1px_2px]']" class="grid grid-cols-2 transition-transform items-center relative p-3 px-10 border-b-2 border-black">
+    <div ref="target" :class="[open?'translate-y-0':'-translate-y-[100%]', open?'shadow-[0px_0px_2px]':'shadow-[0px_1px_2px]']" class="grid grid-cols-2 transition-transform items-center relative p-3 px-10 border-b-2 border-black bg-white">
       <div class="h-full">
       <span>
         <svg
@@ -83,9 +83,21 @@ onClickOutside(target, _ => {
           </transition>
         </Menu>
       </nav>
-        <div v-if="!open" class="absolute grid place-self-center cursor-pointer p-2 -bottom-9 opacity-60 bg-white rounded-2xl" role="button" @click="openMenu()">
-          <div class="text-xs relative">open menu</div>
+      <transition
+          name="fade"
+      >
+        <div v-if="!open" class="absolute grid place-self-center cursor-pointer p-2 -bottom-9 bg-white rounded-2xl" role="button" @click="openMenu()">
+          <div class="text-xs relative opacity-60 select-none">open menu</div>
         </div>
+      </transition>
     </div>
   </div>
 </template>
+<style scoped lang="postcss">
+  .fade-enter-active, .fade-leave-active {
+    @apply transition-opacity duration-100;
+  }
+  .fade-enter-from, .fade-leave-to {
+    @apply opacity-0;
+  }
+</style>
