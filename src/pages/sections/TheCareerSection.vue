@@ -55,7 +55,7 @@ onMounted(() => {
         <div class="right-panel--card place-self-center row-start-[15] row-end-[19]">
           <h3 class="font-bold text-xl">Employed</h3>
           <hr class="py-1">
-          <p>Working as an Web-Dev at adorsys</p>
+          <p>Working as a Web-Dev at adorsys</p>
         </div>
       </div>
     </div>
