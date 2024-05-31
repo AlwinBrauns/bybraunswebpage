@@ -20,5 +20,5 @@ html, body, main{
     display: inline-block;
 }
 .landingpage--grid-section {
-    @apply h-screen w-full grid place-items-center;
+    @apply min-h-screen w-full grid place-items-center;
 }
