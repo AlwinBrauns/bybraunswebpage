@@ -11,7 +11,18 @@
   const error = ref();
   const success = ref();
 
-  const handleContactSubmit = async () => {
+  const handleContactSubmit = async (form: HTMLFormElement) => {
+    if(!(subject.value && email.value && message.value)) {
+      error.value = "please enter all fields";
+      setTimeout(() => {
+        error.value = undefined
+      }, 10000)
+      return;
+    }
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
     const formData = new FormData();
     formData.append('subject', subject.value);
     formData.append('email', email.value);
@@ -98,7 +109,7 @@
         <input type="text" v-model="subject" name="subject" id="subject" placeholder="Subject" class="p-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-gray-400">
         <input type="email" v-model="email" name="email" id="email" placeholder="E-Mail" class="p-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-gray-400">
         <textarea name="message" v-model="message" id="message" placeholder="Your message..." class="p-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-gray-400 h-32"></textarea>
-        <button type="submit" class="p-2 border border-gray-300 rounded bg-gray-900 text-white hover:bg-gray-700 focus:outline-none focus:ring-1 focus:ring-gray-400">Send</button>
+        <button :disabled="!(subject && email && message)" type="submit" class="p-2 border border-gray-300 rounded bg-gray-900 text-white hover:bg-gray-700 focus:outline-none focus:ring-1 focus:ring-gray-400 disabled:bg-gray-500 disabled:cursor-not-allowed">Send</button>
       </div>
     </form>
   </section>
