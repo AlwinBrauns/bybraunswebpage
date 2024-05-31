@@ -11,7 +11,8 @@
   const error = ref();
   const success = ref();
 
-  const handleContactSubmit = async (form: HTMLFormElement) => {
+  const handleContactSubmit = async (event: Event) => {
+    const form = event.target as HTMLFormElement;
     if(!(subject.value && email.value && message.value)) {
       error.value = "please enter all fields";
       setTimeout(() => {
