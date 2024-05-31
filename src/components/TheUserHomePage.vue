@@ -23,30 +23,26 @@ onMounted(async () => {
 </script>
 
 <template>
-  <section class="h-screen flex flex-col">
-    <div class="container mx-auto p-5 grid gap-4 content-between self-end transition-all mb-4"
+  <section class="section-container">
+    <div class="content-container"
          :class="OllamaListener.messages.value.length ? 'flex-1' : ''"
     >
-      <div class="flex gap-2 items-center relative">
+      <div class="header-container">
         <span> Hallo {{ userProfile?.firstName }}! </span>
         <Disclosure as="span">
-          <DisclosureButton class="grid grid-cols-2 place-items-center">
+          <DisclosureButton class="disclosure-button">
             <i> Infos </i>
-            <ChevronRightIcon
-                class="ui-open:rotate-90 ui-open:transform h-1/2 relative -left-2 transition-transform"
-            />
+            <ChevronRightIcon class="chevron-icon" />
           </DisclosureButton>
           <transition
-              enter-active-class="transition duration-100 ease-out"
-              enter-from-class="transform scale-95 opacity-0"
-              enter-to-class="transform scale-100 opacity-100"
-              leave-active-class="transition duration-75 ease-in"
-              leave-from-class="transform scale-100 opacity-100"
-              leave-to-class="transform scale-95 opacity-0"
+              enter-active-class="transition-enter-active"
+              enter-from-class="transition-enter-from"
+              enter-to-class="transition-enter-to"
+              leave-active-class="transition-leave-active"
+              leave-from-class="transition-leave-from"
+              leave-to-class="transition-leave-to"
           >
-            <DisclosurePanel
-                class="bg-white shadow rounded p-5 z-10 absolute left-0"
-            >
+            <DisclosurePanel class="disclosure-panel">
               <p>
                 Server Ping:
                 {{ ping }}
@@ -63,18 +59,14 @@ onMounted(async () => {
           </transition>
         </Disclosure>
       </div>
-      <div class="grid grid-cols-1 grid-flow-row gap-2">
-        <template v-for="message in OllamaListener.messages.value ">
+      <div class="messages-container">
+        <template v-for="message in OllamaListener.messages.value">
           <div class="ollama-message">
-          <span>
-          {{ message }}
-          </span>
+            <span>{{ message }}</span>
           </div>
         </template>
-        <div v-if="OllamaListener.currentOllamaMessage.value" class="ollama-message ollama-message-current">
-        <span>
-        {{ OllamaListener.currentOllamaMessage.value }}
-        </span>
+        <div v-if="OllamaListener.currentOllamaMessage.value" class="ollama-message-current">
+          <span>{{ OllamaListener.currentOllamaMessage.value }}</span>
         </div>
         <div>
           <OllamaUserInput
@@ -104,7 +96,49 @@ onMounted(async () => {
 </template>
 
 <style scoped lang="postcss">
-  .ollama-message {
-    @apply w-full transition-all rounded-lg shadow bg-white p-5;
-  }
+.section-container {
+  @apply h-screen flex flex-col;
+}
+.content-container {
+  @apply container mx-auto p-5 grid gap-4 content-between self-end transition-all mb-4;
+}
+.header-container {
+  @apply flex gap-2 items-center relative;
+}
+.disclosure-button {
+  @apply grid grid-cols-2 place-items-center;
+}
+.chevron-icon {
+  @apply ui-open:rotate-90 ui-open:transform h-1/2 relative -left-2 transition-transform;
+}
+.transition-enter-active {
+  @apply transition duration-100 ease-out;
+}
+.transition-enter-from {
+  @apply transform scale-95 opacity-0;
+}
+.transition-enter-to {
+  @apply transform scale-100 opacity-100;
+}
+.transition-leave-active {
+  @apply transition duration-75 ease-in;
+}
+.transition-leave-from {
+  @apply transform scale-100 opacity-100;
+}
+.transition-leave-to {
+  @apply transform scale-95 opacity-0;
+}
+.disclosure-panel {
+  @apply bg-white shadow rounded p-5 z-10 absolute left-0;
+}
+.messages-container {
+  @apply grid grid-cols-1 grid-flow-row gap-2;
+}
+.ollama-message {
+  @apply w-full transition-all rounded-lg shadow bg-white p-5;
+}
+.ollama-message-current {
+  @apply w-full transition-all rounded-lg shadow bg-white p-5;
+}
 </style>
