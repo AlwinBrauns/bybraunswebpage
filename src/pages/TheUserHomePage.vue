@@ -5,7 +5,7 @@ import { onMounted, ref } from "vue";
 import ollamaAdapter, {
   useOllamaListener,
 } from "../backend-connection/ollamaAdapter.ts";
-import OllamaUserInput from "./OllamaUserInput.vue";
+import OllamaUserInput from "../components/OllamaUserInput.vue";
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
 import { ChevronRightIcon } from "@heroicons/vue/20/solid";
 

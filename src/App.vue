@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import TheUserHomePage from "./components/TheUserHomePage.vue";
+import TheUserHomePage from "./pages/TheUserHomePage.vue";
 import TheHeader from "./components/TheHeader.vue";
 import {useKeycloakUser} from "./composable/User/useKeycloakUser.ts";
 import {KeycloakInstance} from "./main.ts";
