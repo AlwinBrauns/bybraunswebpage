@@ -38,8 +38,12 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           source: "html"
           target: "~/bybraunsinfrastructure/static-web-server/"
-      - name: publish to nexus
-        run: npm publish --registry ${{ secrets.NPM_NEXUS_URL }}
+      - name: Nexus Publish
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+          registry-url: ${{ secrets.NPM_NEXUS_URL }}
+      - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - run: echo "This job's status is ${{ job.status }}."
