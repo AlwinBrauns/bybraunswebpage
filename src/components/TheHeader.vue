@@ -61,8 +61,8 @@ onClickOutside(target, _ => {
           >
             <MenuItems as="ul" class="menu-items">
               <MenuItem class="menu-item">
-                <a href="#" @click="KeycloakInstance.logout" v-if="userProfile">Logout</a>
-                <a href="#" @click="KeycloakInstance.login" v-else>Login</a>
+                <a href="#" @click="() => KeycloakInstance.logout()" v-if="userProfile">Logout</a>
+                <a href="#" @click="() => KeycloakInstance.login()" v-else>Login</a>
               </MenuItem>
               <MenuItem v-if="userProfile" class="menu-item">
                 <a href="#" @click="KeycloakInstance.accountManagement">Your Account</a>
