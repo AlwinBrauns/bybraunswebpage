@@ -19,7 +19,7 @@ jobs:
       - run: npm run build
       - name: Semantic Release
         run: |
-          npx semantic-release
+          npx semantic-release --branches main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
