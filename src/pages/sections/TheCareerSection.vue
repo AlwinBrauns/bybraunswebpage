@@ -15,7 +15,7 @@ const { stop } = useIntersectionObserver(elem, ([{ isIntersecting }]) => {
           opacity: [0, 1],
           skew: [-10, 0],
           easing: "easeInOutQuad",
-          duration: 800,
+          duration: 400,
           delay: (_, i) => 100 * (i + 1) + 30,
           begin(_) {
             if(elem.value) {
