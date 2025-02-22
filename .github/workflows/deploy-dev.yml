@@ -1,8 +1,7 @@
 name: Deployment Dev
 run-name: ${{ github.actor }} running a deployment 🚀
 on:
-  push:
-    branches: ["develop"]
+  workflow_dispatch:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest

@@ -1,8 +1,7 @@
 name: Deployment Prod
 run-name: ${{ github.actor }} running a deployment 🚀
 on:
-  push:
-    branches: ["main"]
+  workflow_dispatch:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -13,8 +12,15 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "18.x"
+          registry-url: ${{ secrets.NPM_NEXUS_URL }}
       - run: npm install
       - run: npm run build
+      - name: Semantic Release
+        run: |
+          npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - run: cp -r dist html
       - name: deploy to server
         uses: appleboy/scp-action@v0.1.7
@@ -26,4 +32,8 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           source: "html"
           target: "~/bybraunsinfrastructure/static-web-server/"
+      - name: publish to nexus
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - run: echo "This job's status is ${{ job.status }}."
