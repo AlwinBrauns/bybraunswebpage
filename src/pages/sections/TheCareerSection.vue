@@ -16,7 +16,7 @@ const { stop } = useIntersectionObserver(elem, ([{ isIntersecting }]) => {
           skew: [-10, 0],
           easing: "easeInOutQuad",
           duration: 400,
-          delay: (_, i) => 100 * (i + 1) + 30,
+          delay: (_, i) => 50 * (i + 1) + 30,
           begin(_) {
             if(elem.value) {
               elem.value.style.opacity = '';
