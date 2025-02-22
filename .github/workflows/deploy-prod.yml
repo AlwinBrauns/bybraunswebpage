@@ -23,10 +23,11 @@ jobs:
       - run: npm run build
       - name: Semantic Release
         run: |
-          npx semantic-release --branches main --plugins @semantic-release/commit-analyzer ,@semantic-release/release-notes-generator ,@semantic-release/github
+          npx semantic-release --branches main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_REGISTRY: ${{ secrets.NPM_NEXUS_URL }}
       - run: cp -r dist html
       - name: deploy to server
         uses: appleboy/scp-action@v0.1.7
