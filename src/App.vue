@@ -26,7 +26,7 @@ const {userState, userProfile} = useKeycloakUser();
     <TheHeader :user-profile="userProfile"/>
     <div>
       <p>This Account is disabled, please log into another Account!
-        <a href="#" @click="KeycloakInstance.logout">Logout</a>
+        <a href="#" @click="() => KeycloakInstance.logout()">Logout</a>
       </p>
     </div>
   </template>
