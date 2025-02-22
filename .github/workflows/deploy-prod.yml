@@ -21,8 +21,12 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - run: npm run build
-      - name: Semantic Release
-        run: |
+      - name: Publish
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+          registry-url: ${{ secrets.NPM_NEXUS_URL }}
+      - run: |
           npx semantic-release --branches main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -38,12 +42,4 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           source: "html"
           target: "~/bybraunsinfrastructure/static-web-server/"
-      - name: Nexus Publish
-        uses: actions/setup-node@v3
-        with:
-          node-version: "18.x"
-          registry-url: ${{ secrets.NPM_NEXUS_URL }}
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - run: echo "This job's status is ${{ job.status }}."
